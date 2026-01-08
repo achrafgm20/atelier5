@@ -25,10 +25,49 @@ export default function Checkout({ onClose, onBack }) {
     });
   };
 
-  const handleSubmitOrder = () => {
-    setTimeout(() => {
-      setShowSuccess(true);
-    }, 100);
+  const handleSubmitOrder = async () => {
+    try {
+      const orderData = {
+        order: {
+          items: cartCtx.items.map(item => ({
+            id: item.id,
+            name: item.name,
+            quantity: item.quantity,
+            price: item.price
+          })),
+          customer: {
+            name: formData.fullName,
+            email: formData.email,
+            street: formData.street,
+            'postal-code': formData.postalCode,
+            city: formData.city
+          }
+        }
+      };
+
+      const response = await fetch('http://localhost:3000/orders', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(orderData)
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to submit order');
+      }
+
+      const result = await response.json();
+      console.log('Order submitted:', result);
+
+      setTimeout(() => {
+        setShowSuccess(true);
+      }, 100);
+
+    } catch (error) {
+      console.error('Error submitting order:', error);
+      alert('Failed to submit order. Please try again.');
+    }
   };
 
   const handleCloseSuccess = () => {
@@ -48,7 +87,7 @@ export default function Checkout({ onClose, onBack }) {
           
           <button 
             onClick={handleCloseSuccess}
-            className="bg-yellow-500 hover:bg-yellow-600 text-black px-8 py-3 rounded-lg font-semibold transition-all"
+            className="bg-yellow-500 hover:bg-yellow-600 text-white px-8 py-3 rounded-lg font-semibold transition-all"
           >
             Okay
           </button>
@@ -59,8 +98,8 @@ export default function Checkout({ onClose, onBack }) {
 
   return (
     <Modal onClose={onClose}>
-      <div className="p-6 ">
-        <h2 className="text-2xl text-left font-bold text-gray-800 mb-2 ml-0 ">Checkout</h2>
+      <div className="p-6">
+        <h2 className="text-2xl font-bold text-gray-800 mb-2 text-left">Checkout</h2>
         <p className="text-gray-600 mb-6 text-left">Total Amount: {currencyFormatter.format(calculateTotal())}</p>
         
         <div className="space-y-4">
@@ -105,7 +144,7 @@ export default function Checkout({ onClose, onBack }) {
                 name="postalCode"
                 value={formData.postalCode}
                 onChange={handleInputChange}
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-black text-gray-800"
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-black text-gray-800 "
               />
             </div>
             
@@ -116,25 +155,25 @@ export default function Checkout({ onClose, onBack }) {
                 name="city"
                 value={formData.city}
                 onChange={handleInputChange}
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-black-500 text-gray-800"
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-black text-gray-800 text-left"
               />
             </div>
           </div>
 
-         <div className="flex justify-end gap-3 pt-4">
-          <button 
-            onClick={onBack}
-            className="bg-white-300 hover:bg-black-400 text-gray-600 px-6 py-3 rounded-lg font-semibold transition-all"
-          >
-            Back
-          </button>
-          <button 
-            onClick={handleSubmitOrder}
-            className="bg-yellow-500 hover:bg-black-600 text-black px-8 py-3 rounded-lg font-semibold transition-all"
-          >
-            Submit Order
-          </button>
-        </div>
+          <div className="flex justify-end gap-3 pt-4">
+            <button 
+              onClick={onBack}
+              className="bg-gray-300 hover:bg-gray-400 text-gray-800 px-6 py-3 rounded-lg font-semibold transition-all"
+            >
+              Back
+            </button>
+            <button 
+              onClick={handleSubmitOrder}
+              className="bg-yellow-500 hover:bg-yellow-600 text-white px-8 py-3 rounded-lg font-semibold transition-all "
+            >
+              Submit Order
+            </button>
+          </div>
         </div>
       </div>
     </Modal>
