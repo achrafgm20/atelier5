@@ -26,7 +26,6 @@ export default function Checkout({ onClose, onBack }) {
   };
 
   const handleSubmitOrder = () => {
-    // Ici vous pouvez ajouter la logique d'envoi au backend
     setTimeout(() => {
       setShowSuccess(true);
     }, 100);
@@ -37,7 +36,6 @@ export default function Checkout({ onClose, onBack }) {
     onClose();
   };
 
-  // Modal de succès
   if (showSuccess) {
     return (
       <Modal onClose={handleCloseSuccess}>
@@ -59,7 +57,6 @@ export default function Checkout({ onClose, onBack }) {
     );
   }
 
-  // Formulaire de checkout
   return (
     <Modal onClose={onClose}>
       <div className="p-6 ">
