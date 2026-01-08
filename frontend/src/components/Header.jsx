@@ -1,6 +1,10 @@
-import React from 'react'
-import logo from '../../assets/logo.jpg'
+import React, {  useContext } from 'react'
+import logo from '../assets/logo.jpg'
+import { CartContext } from '../store/cart-context';
 export default function Header() {
+
+  
+  const cartCtx = useContext(CartContext);
   return (
     <div className='flex justify-between items-center m-5'>
       <div className='flex justify-center items-center gap-4'>
@@ -8,9 +12,10 @@ export default function Header() {
         <h1 className='text-3xl text-amber-400'>REACTFOOD</h1>
       </div>
       <div>
-        <h1 className='text-3xl text-amber-400'>
+        <button className='text-3xl text-amber-400'>
           Cart 
-        </h1>
+          (<span>{cartCtx.items.length}</span>)
+        </button>
       </div>
       
     </div>

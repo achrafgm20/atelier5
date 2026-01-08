@@ -1,14 +1,17 @@
 
 import './App.css'
-import Header from './components/UI/Header'
+import Header from './components/Header'
+import Meals from './components/Meals'
+import CartProvider from './store/CarteContext'
 
 function App() {
   
 
   return (
-    <>
-      <Header />
-    </>
+    <CartProvider>
+      <Header   />
+      <Meals />
+    </CartProvider>
   )
 }
 
