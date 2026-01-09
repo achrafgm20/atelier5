@@ -9,11 +9,12 @@ export default function MealItem({ meal }) {
   function handleAddMeal() {
     cartCtx.addItem(meal);
   }
+  const API_URL = import.meta.env.API_URL || "https://localhost:3000" ;
    
   return (
     <div className="bg-white rounded-lg shadow-md overflow-hidden h-full flex flex-col">
       <img
-        src={`http://localhost:3000/${meal.image}`}
+        src={`${API_URL}/${meal.image}`}
         alt={meal.name}
         className="w-full h-48 object-cover"
       />

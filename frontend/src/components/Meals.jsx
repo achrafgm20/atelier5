@@ -5,11 +5,12 @@ export default function Meals() {
   const [meals, setMeals] = useState([])
   const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState(null)
+  const API_URL = import.meta.env.API_URL || "https://localhost:3000";
 
   useEffect(() =>{
     const fetchMeals = async () => {
       try{
-        const response = await fetch('http://localhost:3000/meals')
+        const response = await fetch('${API_URL}/meals')
         if(!response.ok){
           throw new Error("Something went wrong")
         }
