@@ -5,7 +5,7 @@ export default function Meals() {
   const [meals, setMeals] = useState([])
   const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState(null)
-  const API_URL = import.meta.env.API_URL || "http://localhost:3000";
+  const API_URL = import.meta.env.VITE_BACKEND_URL || "http://localhost:3000";
 
   useEffect(() =>{
     const fetchMeals = async () => {
@@ -23,7 +23,7 @@ export default function Meals() {
       }
     }
     fetchMeals()
-  },[])
+  },)
  
 
   if(isLoading) return <p>Loading...</p>;
