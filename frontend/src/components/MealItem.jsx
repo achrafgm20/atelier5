@@ -9,7 +9,7 @@ export default function MealItem({ meal }) {
   function handleAddMeal() {
     cartCtx.addItem(meal);
   }
-  const API_URL = import.meta.env.VITE_BACKEND_URL || "http://localhost:3000" ;
+  const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3000" ;
    
   return (
     <div className="bg-white rounded-lg shadow-md overflow-hidden h-full flex flex-col">

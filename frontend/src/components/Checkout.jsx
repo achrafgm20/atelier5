@@ -44,8 +44,8 @@ export default function Checkout({ onClose, onBack }) {
           }
         }
       };
-      const API_URL = import.meta.env.VITE_BACKEND_URL || "http://localhost:3000" ;
-      const response = await fetch(`${API_URL}/orders `, {
+      const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3000" ;
+      const response = await fetch(`${API_URL}/orders`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
